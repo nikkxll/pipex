@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 11:01:27 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:40:50 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:02:56 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // string, which is the result of the concatenation
 // of ’s1’ and ’s2’.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

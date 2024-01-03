@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 11:25:39 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:40:21 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:02:38 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 // Description: Outputs the character ’c’ to the given file
 // descriptor.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 void	ft_putchar_fd(char c, int fd)
 {

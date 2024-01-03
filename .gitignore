@@ -1,2 +1,6 @@
 .vscode
 .DS_Store
+a.txt
+b.txt
+pipex.dSYM
+pipex-tester

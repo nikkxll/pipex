@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 10:27:32 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:40:06 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:02:28 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 //	This behavior is not required by C and portable code should only 
 //	depend on the sign of the returned value.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {

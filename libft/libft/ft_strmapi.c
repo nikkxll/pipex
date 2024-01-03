@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 11:21:11 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:41:03 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:03:14 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 // to create a new string (with malloc(3)) resulting
 // from successive applications of ’f’.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {

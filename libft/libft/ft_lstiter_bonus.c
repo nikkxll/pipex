@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:19:49 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:39:50 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:02:09 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 // Description: Iterates the list ’lst’ and applies the function
 // ’f’ on the content of each node.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {

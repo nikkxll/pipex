@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:32:44 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:39:40 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:01:56 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 // Description: Adds the node ’new’ at the end of the list.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {

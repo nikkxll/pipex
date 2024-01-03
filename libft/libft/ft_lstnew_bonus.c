@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 10:57:57 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:39:58 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:02:20 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 // the value of the parameter ’content’. The variable
 // ’next’ is initialized to NULL.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 t_list	*ft_lstnew(void *content)
 {

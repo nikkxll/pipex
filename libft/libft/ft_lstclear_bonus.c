@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 14:13:49 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:39:45 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:02:02 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 // Finally, the pointer to the list must be set to
 // NULL.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 void	ft_lstclear(t_list **lst, void (*del)(void*))
 {

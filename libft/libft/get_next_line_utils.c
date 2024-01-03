@@ -6,11 +6,11 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 21:31:39 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/09 12:46:51 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/03 23:03:43 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../../headers/get_next_line.h"
 
 void	*ft_free(char *str_to_free)
 {

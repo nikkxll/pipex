@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 08:50:07 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:41:01 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:03:09 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 //	terminating NUL character.  The strnlen() function returns either the 
 //	same result as strlen() or maxlen, whichever is smaller.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 size_t	ft_strlen(const char *s)
 {

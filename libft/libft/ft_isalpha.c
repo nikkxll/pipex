@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:41:09 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:39:26 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:01:20 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 //	The isalpha() function returns zero if the character tests false and 
 //	returns non-zero if the character tests true.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 int	ft_isalpha(int c)
 {

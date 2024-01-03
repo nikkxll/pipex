@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:14:10 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:39:35 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:01:51 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 //	The isprint() function returns zero if the character tests false 
 //	and returns non-zero if the character tests true.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 int	ft_isprint(int c)
 {

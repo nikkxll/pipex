@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 10:38:27 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:40:45 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:02:51 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 //	If insufficient memory is available, NULL is returned 
 //	and errno is set to ENOMEM.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 char	*ft_strdup(const char *s1)
 {

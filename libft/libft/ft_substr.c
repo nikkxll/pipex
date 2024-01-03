@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 10:52:28 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:41:14 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:03:27 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 // The substring begins at index ’start’ and is of
 // maximum size ’len’.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {

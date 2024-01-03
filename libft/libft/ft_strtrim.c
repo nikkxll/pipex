@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 11:03:12 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:41:12 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:03:25 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 // Description: Allocates (with malloc(3)) and returns a copy of
 // ’s1’ with the characters specified in ’set’ re
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 static size_t	left_trim_pos(const char *s1, const char *set)
 {

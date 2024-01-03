@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 10:29:55 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:41:08 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:03:20 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 //	nowhere in haystack, NULL is returned; otherwise a pointer to the first 
 //	character of the first occurrence of needle is returned.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {

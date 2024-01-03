@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:02:13 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:39:42 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:01:59 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 // Description: Adds the node ’new’ at the beginning of the list.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {

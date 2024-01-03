@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:27:52 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:39:31 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:01:47 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 //	the character tests false and return non-zero if the character
 //	tests true.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 int	ft_isdigit(int c)
 {

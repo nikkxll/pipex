@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 10:36:45 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:38:48 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:01:39 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 //	functions return a pointer to allocated memory.  
 //	If there is an error, they return a NULL pointer and set errno to ENOMEM.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 void	*ft_calloc(size_t count, size_t size)
 {

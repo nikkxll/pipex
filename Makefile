@@ -2,23 +2,22 @@ NAME			:= pipex
 
 CC				:= cc
 CFLAGS			:= -g -Wall -Wextra -Werror
+RM				:= rm -rf
 
 LIBFT_DIR		:= ./libft/
 LIBFT_DIR_MAIN	:= ./libft/libft/
-SRCS_PATH		:= ./srcs/
 LIBFT			:= $(LIBFT_DIR)/libft.a
-FDF_HEADER		:= pipex.h
-LIBFT_HEADER	:= $(LIBFT_DIR)/libft.h
-GNL_HEADER		:= $(LIBFT_DIR)/libft/get_next_line.h 
+HEADERS_DIR		:= ./headers/
 
-SRCS_CORE		:= main.c
+SRCS_PATH		:= ./srcs/
+SRCS_CORE		:= main.c core.c error_messages.c validators.c
 
-HEADERS			:= -I$(LIBFT_DIR) -I$(LIBFT_DIR)/libft -I$(LIBFT_DIR)/libft/get_next_line.h
+HEADERS			:= -I$(HEADERS_DIR)
+HEADERS_ALL 	:= $(HEADERS_DIR)/get_next_line.h $(HEADERS_DIR)/libft.h $(HEADERS_DIR)/pipex.h
 
-OBJS_LIBFT		:= $(SRCS_LIBFT:.c=.o)
+OBJS_CORE		:= $(SRCS_CORE:.c=.o)
 
-OBJS			:= $(addprefix $(LIBFT_DIR_MAIN), $(OBJS_LIBFT))
-
+OBJS			:= $(addprefix $(SRCS_PATH), $(OBJS_CORE))
 SRCS			:= $(addprefix $(SRCS_PATH), $(SRCS_CORE))
 
 GREEN			:= \033[0;32m
@@ -27,22 +26,23 @@ NC				:= \033[0m
 
 all: $(NAME)
 
-$(NAME): $(SRCS) $(OBJS) $(LIBFT) $(MLX)
-	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(HEADERS) -o $(NAME)
-	@echo "$(GREEN)---Compilation of '$(NAME)' completed successfully ---$(NC)"
+$(NAME): $(SRCS) $(OBJS) $(LIBFT) $(HEADERS_ALL)
+	@$(CC) $(CFLAGS) $(HEADERS) $(SRCS) $(LIBFT) -o $(NAME)
+	@echo "$(GREEN)--- Compilation of '$(NAME)' completed successfully ---$(NC)"
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ $(HEADERS) 
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
 
 clean:
+	@$(RM) $(OBJS)
 	@$(MAKE) -C $(LIBFT_DIR) clean
 	@echo "$(BLUE)--- Object files from libft cleaned ---$(NC)"
 
 fclean: clean
-	@rm -f $(NAME)
+	@$(RM) $(NAME)
 	@echo "$(BLUE)--- '$(NAME)' removed ---$(NC)"
 	@make -C $(LIBFT_DIR) fclean
 	@echo "$(BLUE)--- Cleaning finished ---$(NC)"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 10:07:39 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:40:15 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:02:33 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 // RETURN VALUES
 //	The memmove() function returns the original value of dst.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {

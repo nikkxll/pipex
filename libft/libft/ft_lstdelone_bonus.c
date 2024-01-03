@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:03:04 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:39:48 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:02:07 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 // as a parameter and free the node. The memory of
 // ’next’ must not be freed.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {

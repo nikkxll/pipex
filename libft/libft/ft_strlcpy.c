@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 10:13:09 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:40:59 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:03:06 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 //	If the return value is >= dstsize, the output string has been truncated.
 //	It is the caller's responsibility to handle this.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {

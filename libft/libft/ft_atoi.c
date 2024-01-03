@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 10:32:19 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/18 11:17:00 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/03 23:26:55 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 //	The atoi() function converts the initial portion 
 //	of the string pointed to by str to int representation.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 static int	sign_check(const char *str, int i)
 {

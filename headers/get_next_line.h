@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 18:53:31 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/03 15:38:15 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/03 23:16:02 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # endif
 
 # include <limits.h>
-# include "../libft.h"
+# include "libft.h"
 
 char	*ft_strjoin_gnl(char *s1, char *s2);
 char	*get_next_line(int fd);

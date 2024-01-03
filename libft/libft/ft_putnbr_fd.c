@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 11:30:05 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:40:36 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:02:43 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 // Description: Outputs the integer ’n’ to the given file
 // descriptor.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 void	ft_putnbr_fd(int nb, int fd)
 {

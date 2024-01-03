@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 10:25:56 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:40:03 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:02:26 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 //	The memchr() function returns a pointer to the byte located, 
 //	or NULL if no such byte exists within n bytes.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {

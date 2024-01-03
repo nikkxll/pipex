@@ -6,11 +6,11 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 16:57:03 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/13 16:18:40 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/03 23:03:48 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../../headers/get_next_line.h"
 
 char	*ft_strcpy_newl_copy(char *src, char *dest)
 {

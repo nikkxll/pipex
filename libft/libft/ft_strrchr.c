@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 10:23:10 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:41:10 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:03:22 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 //	The functions strchr() and strrchr() return a pointer to the located 
 //	character, or NULL if the character does not appear in the string.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:14:09 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:39:52 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:02:12 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 // Description: Returns the last node of the list.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 t_list	*ft_lstlast(t_list *lst)
 {

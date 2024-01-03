@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 10:19:11 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:41:18 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:03:32 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 //	the corresponding upper-case letter if there is one; otherwise, the 
 //	argument is returned unchanged.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 int	ft_toupper(int c)
 {

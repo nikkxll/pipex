@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 11:29:12 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:40:34 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:02:40 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 // Description: Outputs the string ’s’ to the given file descriptor
 // followed by a newline.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 void	ft_putendl_fd(char *s, int fd)
 {

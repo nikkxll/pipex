@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:09:05 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:40:19 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:02:36 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 // RETURN VALUES
 //	The memset() function returns its first argument.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 void	*ft_memset(void *b, int c, size_t len)
 {

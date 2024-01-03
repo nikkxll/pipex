@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 10:21:41 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:40:43 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:02:49 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 //	located character, or NULL if the character does not
 //	appear in the string.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {

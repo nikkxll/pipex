@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmitriinikiforov <dmitriinikiforov@stud    +#+  +:+       +#+        */
+/*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 10:24:51 by dnikifor          #+#    #+#             */
-/*   Updated: 2023/12/08 00:41:05 by dmitriiniki      ###   ########.fr       */
+/*   Updated: 2024/01/03 23:03:18 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 //	equal to, or less than the string s2.  The comparison is done using 
 //	unsigned characters, so that `\200' is greater than `\0'.
 
-#include "../libft.h"
+#include "../../headers/libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
