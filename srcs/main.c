@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 12:03:04 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/04 14:35:29 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/05 16:37:39 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 5)
 	{
 		ft_putstr_fd("Args number error\n", 2);
-		exit(0);
+		exit(127);
 	}
 	ppx = (t_pipex *)malloc(sizeof(t_pipex));
 	if (!ppx)

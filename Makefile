@@ -10,7 +10,7 @@ LIBFT			:= $(LIBFT_DIR)/libft.a
 HEADERS_DIR		:= ./headers/
 
 SRCS_PATH		:= ./srcs/
-SRCS_CORE		:= main.c core.c error_messages.c validators.c
+SRCS_CORE		:= main.c core.c error_messages.c utils.c
 
 HEADERS			:= -I$(HEADERS_DIR)
 HEADERS_ALL 	:= $(HEADERS_DIR)/get_next_line.h $(HEADERS_DIR)/libft.h $(HEADERS_DIR)/pipex.h

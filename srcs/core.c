@@ -6,47 +6,38 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:53:42 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/04 16:43:33 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/05 17:10:51 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/pipex.h"
 
-void	cmd_exe(t_pipex *ppx, char **argv, char **envp, int cmd_number)
+void	cmd_exe(t_pipex *ppx, char **argv, char **envp, int i)
 {
-	char	*cmd;
-	int		i;
 	int		j;
 
-	i = -1;
 	j = -1;
-	while (envp[++i])
-	{
-		if (ft_strncmp(envp[i], "PATH", 4) == 0)
-			break ;
-	}
-	ppx->all_paths_array = ft_split(envp[i] + 5, ':');
-	if (envp[i] == NULL || ppx->all_paths_array[0] == NULL)
-	{
-		ft_putstr_fd("check\n", 2);
-		ppx->cmd_args = ft_split(argv[cmd_number], ' ');
-		execve(argv[cmd_number], ppx->cmd_args, envp);
-	}
+	check_if_executable(ppx, argv);
+	if (ppx->exec_flag == 1)
+		execve(ppx->cmd_args[0], ppx->cmd_args, envp);
 	else
 	{
-		ppx->cmd_args = ft_split(argv[cmd_number], ' ');
-		while (ppx->all_paths_array[++j])
+		i = if_path_exist(ppx, envp);
+		if (!ppx->path_flag)
+			error_message("pipex: no such file or directory\n", ppx, 1);
+		ppx->all_paths_array = ft_split(envp[i] + 5, ':');
+		if (ppx->all_paths_array[0])
 		{
-			cmd = ft_strjoin(ppx->all_paths_array[j], "/");
-			cmd = ft_strjoin(cmd, ppx->cmd_args[0]);
-			if (execve(cmd, ppx->cmd_args, envp) == -1)
-				free(cmd);
+			while (ppx->all_paths_array[++j])
+			{
+				ppx->cmd = ft_strjoin(ppx->all_paths_array[j], "/");
+				ppx->cmd = ft_strjoin(ppx->cmd, ppx->cmd_args[0]);
+				if (execve(ppx->cmd, ppx->cmd_args, envp) == -1)
+					free(ppx->cmd);
+			}
 		}
 	}
-	ft_putstr_fd("pipex: command not found\n", 2);
-	if (cmd_number == 3)
-		free(ppx);
-	exit(0);
+	error_message("pipex: command not found\n", ppx, 127);
 }
 
 void	child_process(t_pipex *ppx, char **argv, char **envp)
@@ -54,15 +45,15 @@ void	child_process(t_pipex *ppx, char **argv, char **envp)
 	first_file_validation(argv, ppx);
 	ppx->file1_fd = open(argv[1], O_RDONLY);
 	if (ppx->file1_fd == -1)
-		error_message("Open file error", ppx);
+		error_message("open file error", ppx, 1);
 	if (dup2(ppx->file1_fd, STDIN_FILENO) == -1)
-		error_message("Duplication error for f1 stdin", ppx);
+		error_message("duplication error for f1 stdin", ppx, 1);
 	if (dup2(ppx->pipe_end[1], STDOUT_FILENO) == -1)
-		error_message("Duplication error for f1 stdout", ppx);
+		error_message("duplication error for f1 stdout", ppx, 1);
 	close(ppx->pipe_end[0]);
 	close(ppx->file1_fd);
 	ppx->cmd_number = 2;
-	cmd_exe(ppx, argv, envp, ppx->cmd_number);
+	cmd_exe(ppx, argv, envp, -1);
 	exit(EXIT_FAILURE);
 }
 
@@ -74,17 +65,17 @@ void	parent_process(t_pipex *ppx, char **argv, char **envp, int argc)
 	close(ppx->pipe_end[1]);
 	close(ppx->file2_fd);
 	ppx->cmd_number = 3;
-	cmd_exe(ppx, argv, envp, ppx->cmd_number);
+	cmd_exe(ppx, argv, envp, -1);
 	exit(EXIT_FAILURE);
 }
 
 void	ft_pipex(t_pipex *ppx, char **argv, char **envp, int argc)
 {
 	if (pipe(ppx->pipe_end) == -1)
-		error_message("Pipe error", ppx);
+		error_message("pipe error", ppx, 1);
 	ppx->child_1 = fork();
 	if (ppx->child_1 < 0)
-		error_message("Fork error", ppx);
+		error_message("fork error", ppx, 1);
 	if (!ppx->child_1)
 		child_process(ppx, argv, envp);
 	else
