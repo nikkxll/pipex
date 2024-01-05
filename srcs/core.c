@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:53:42 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/05 17:10:51 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/06 00:25:26 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ void	cmd_exe(t_pipex *ppx, char **argv, char **envp, int i)
 			}
 		}
 	}
+	free_splitted_path(ppx->all_paths_array);
 	error_message("pipex: command not found\n", ppx, 127);
 }
 
-void	child_process(t_pipex *ppx, char **argv, char **envp)
+void	child_process_1(t_pipex *ppx, char **argv, char **envp)
 {
 	first_file_validation(argv, ppx);
 	ppx->file1_fd = open(argv[1], O_RDONLY);
@@ -51,33 +52,40 @@ void	child_process(t_pipex *ppx, char **argv, char **envp)
 	if (dup2(ppx->pipe_end[1], STDOUT_FILENO) == -1)
 		error_message("duplication error for f1 stdout", ppx, 1);
 	close(ppx->pipe_end[0]);
-	close(ppx->file1_fd);
 	ppx->cmd_number = 2;
 	cmd_exe(ppx, argv, envp, -1);
-	exit(EXIT_FAILURE);
 }
 
-void	parent_process(t_pipex *ppx, char **argv, char **envp, int argc)
+void	child_process_2(t_pipex *ppx, char **argv, char **envp, int argc)
 {
 	ppx->file2_fd = second_file_validation(argc, argv, ppx);
-	dup2(ppx->file2_fd, STDOUT_FILENO);
-	dup2(ppx->pipe_end[0], STDIN_FILENO);
+	if (dup2(ppx->file2_fd, STDOUT_FILENO) == -1)
+		error_message("duplication error for f2 stdout", ppx, 1);
+	if (dup2(ppx->pipe_end[0], STDIN_FILENO) == -1)
+		error_message("duplication error for f2 stdin", ppx, 1);
 	close(ppx->pipe_end[1]);
-	close(ppx->file2_fd);
 	ppx->cmd_number = 3;
 	cmd_exe(ppx, argv, envp, -1);
-	exit(EXIT_FAILURE);
 }
 
 void	ft_pipex(t_pipex *ppx, char **argv, char **envp, int argc)
 {
+	int   status;
+
 	if (pipe(ppx->pipe_end) == -1)
 		error_message("pipe error", ppx, 1);
 	ppx->child_1 = fork();
 	if (ppx->child_1 < 0)
 		error_message("fork error", ppx, 1);
 	if (!ppx->child_1)
-		child_process(ppx, argv, envp);
-	else
-		parent_process(ppx, argv, envp, argc);
+		child_process_1(ppx, argv, envp);
+	ppx->child_2 = fork();
+	if (ppx->child_2 < 0)
+		error_message("fork error", ppx, 1);
+	if (!ppx->child_2)
+		child_process_2(ppx, argv, envp, argc);
+	close(ppx->pipe_end[0]);
+	close(ppx->pipe_end[1]);
+	waitpid(ppx->child_1, &status, 0);
+	waitpid(ppx->child_2, &status, 0);
 }

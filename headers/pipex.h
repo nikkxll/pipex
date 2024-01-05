@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:18:17 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/05 17:11:02 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/06 00:16:08 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_pipex
 	int		cmd_number;
 	int		pipe_end[2];
 	pid_t	child_1;
+	pid_t	child_2;
 	char	**all_paths_array;
 	char	**cmd_args;
 	int		exec_flag;
@@ -39,5 +40,6 @@ void	first_file_validation(char **argv, t_pipex *ppx);
 int		second_file_validation(int argc, char **argv, t_pipex *ppx);
 int		if_path_exist(t_pipex *ppx, char **envp);
 void	check_if_executable(t_pipex *ppx, char **argv);
+void	free_splitted_path(char **split);
 
 #endif
