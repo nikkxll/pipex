@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 11:27:10 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/03 23:02:45 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/06 14:43:01 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,5 @@ void	ft_putstr_fd(char *s, int fd)
 	{
 		return ;
 	}
-	while (*s)
-	{
-		ft_putchar_fd(*s++, fd);
-	}
+	write(fd, s, ft_strlen(s));
 }

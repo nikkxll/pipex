@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:18:17 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/06 00:16:08 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/06 13:05:51 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_pipex
 void	ft_pipex(t_pipex *ppx, char **argv, char **envp, int argc);
 
 void	error_message(char *message, t_pipex *ppx, int error_num);
+void	error_message_cmd(t_pipex *ppx, int error_num);
 
 void	first_file_validation(char **argv, t_pipex *ppx);
 int		second_file_validation(int argc, char **argv, t_pipex *ppx);
