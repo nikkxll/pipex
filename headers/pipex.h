@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:18:17 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/06 13:05:51 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/07 18:28:35 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ typedef struct s_pipex
 	pid_t	child_2;
 	char	**all_paths_array;
 	char	**cmd_args;
+	char	*cmd;
 	int		exec_flag;
 	int		path_flag;
-	char	*cmd;
+	char	*manual_path;
+	char	*path_case;
 }	t_pipex;
 
 void	ft_pipex(t_pipex *ppx, char **argv, char **envp, int argc);

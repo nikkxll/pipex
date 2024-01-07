@@ -6,26 +6,23 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:53:42 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/06 14:40:32 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/07 18:33:12 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/pipex.h"
 
-void	cmd_exe(t_pipex *ppx, char **argv, char **envp, int i)
+void	cmd_exe(t_pipex *ppx, char **argv, char **envp, int j)
 {
-	int		j;
-
-	j = -1;
 	check_if_executable(ppx, argv);
 	if (ppx->exec_flag == 1)
 		execve(ppx->cmd_args[0], ppx->cmd_args, envp);
 	else
 	{
-		i = if_path_exist(ppx, envp);
+		ppx->path_case = envp[if_path_exist(ppx, envp)];
 		if (!ppx->path_flag)
-			error_message("No such file or directory\n", ppx, 0);
-		ppx->all_paths_array = ft_split(envp[i] + 5, ':');
+			ppx->path_case = ppx->manual_path;
+		ppx->all_paths_array = ft_split(ppx->path_case + 5, ':');
 		if (ppx->all_paths_array[0])
 		{
 			while (ppx->all_paths_array[++j])
@@ -72,6 +69,7 @@ void	ft_pipex(t_pipex *ppx, char **argv, char **envp, int argc)
 {
 	int	status;
 
+	ppx->manual_path = "PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin";
 	if (pipe(ppx->pipe_end) == -1)
 		error_message("pipe error\n", ppx, 1);
 	ppx->child_1 = fork();
