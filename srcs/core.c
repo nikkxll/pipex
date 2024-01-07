@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:53:42 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/07 18:33:12 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/07 23:24:43 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	child_process_1(t_pipex *ppx, char **argv, char **envp)
 	if (dup2(ppx->pipe_end[1], STDOUT_FILENO) == -1)
 		error_message("duplication error for f1 stdout\n", ppx, 1);
 	close(ppx->pipe_end[0]);
+	close(ppx->file1_fd);
 	ppx->cmd_number = 2;
 	cmd_exe(ppx, argv, envp, -1);
 }
@@ -61,6 +62,7 @@ void	child_process_2(t_pipex *ppx, char **argv, char **envp, int argc)
 	if (dup2(ppx->pipe_end[0], STDIN_FILENO) == -1)
 		error_message("duplication error for f2 stdin\n", ppx, 1);
 	close(ppx->pipe_end[1]);
+	close(ppx->file2_fd);
 	ppx->cmd_number = 3;
 	cmd_exe(ppx, argv, envp, -1);
 }
@@ -86,5 +88,5 @@ void	ft_pipex(t_pipex *ppx, char **argv, char **envp, int argc)
 	close(ppx->pipe_end[1]);
 	waitpid(ppx->child_1, &status, 0);
 	waitpid(ppx->child_2, &status, 0);
-	exit (status >> 8);
+	exit(status >> 8);
 }

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:18:17 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/07 20:01:23 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/07 22:01:43 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include "get_next_line.h"
 # include <stdio.h>
@@ -22,9 +22,6 @@ typedef struct s_pipex
 	int		file1_fd;
 	int		file2_fd;
 	int		cmd_number;
-	int		pipe_end[2];
-	pid_t	child_1;
-	pid_t	child_2;
 	char	**all_paths_array;
 	char	**cmd_args;
 	char	*cmd;
@@ -32,15 +29,17 @@ typedef struct s_pipex
 	int		path_flag;
 	char	*manual_path;
 	char	*path_case;
+	int		*commands;
+	int		counter;
 }	t_pipex;
 
-void	ft_pipex(t_pipex *ppx, char **argv, char **envp, int argc);
-void	cmd_exe(t_pipex *ppx, char **argv, char **envp, int j);
+void	ft_pipex_bonus(t_pipex *ppx, char **argv, char **envp, int argc);
+void	cmd_exe(t_pipex *ppx, char **argv, char **envp, int j, int argc);
 
-void	error_message(char *message, t_pipex *ppx, int error_num);
-void	error_message_cmd(t_pipex *ppx, int error_num);
+void	error_message(char *message, t_pipex *ppx, int error_num, int argc);
+void	error_message_cmd(t_pipex *ppx, int error_num, int argc);
 
-void	first_file_validation(char **argv, t_pipex *ppx);
+void	first_file_validation(char **argv, t_pipex *ppx, int argc);
 int		second_file_validation(int argc, char **argv, t_pipex *ppx);
 int		if_path_exist(t_pipex *ppx, char **envp);
 void	check_if_executable(t_pipex *ppx, char **argv);
