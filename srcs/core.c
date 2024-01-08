@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:53:42 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/07 23:24:43 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/08 14:41:06 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,7 @@ void	ft_pipex(t_pipex *ppx, char **argv, char **envp, int argc)
 	close(ppx->pipe_end[1]);
 	waitpid(ppx->child_1, &status, 0);
 	waitpid(ppx->child_2, &status, 0);
+	while (1)
+		continue ;
 	exit(status >> 8);
 }
