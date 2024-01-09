@@ -6,115 +6,104 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:53:42 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/08 18:28:16 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:40:56 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/pipex_bonus.h"
 
-void	cmd_exe(t_pipex *ppx, char **argv, char **envp, int j, int argc)
+void	ft_free_split(char **split)
 {
-	check_if_executable(ppx, argv);
-	if (ppx->exec_flag == 1)
-		execve(ppx->cmd_args[0], ppx->cmd_args, envp);
-	else
-	{
-		ppx->path_case = envp[if_path_exist(ppx, envp)];
-		if (!ppx->path_flag)
-			ppx->path_case = ppx->manual_path;
-		ppx->all_paths_array = ft_split(ppx->path_case + 5, ':');
-		if (ppx->all_paths_array[0])
-		{
-			while (ppx->all_paths_array[++j])
-			{
-				ppx->cmd = ft_strjoin(ppx->all_paths_array[j], "/");
-				ppx->cmd = ft_strjoin(ppx->cmd, ppx->cmd_args[0]);
-				if (execve(ppx->cmd, ppx->cmd_args, envp) == -1)
-					free(ppx->cmd);
-			}
-		}
-	}
-	free_splitted_path(ppx->all_paths_array);
-	error_message_cmd(ppx, 127, argc);
-}
-
-void child_process(int in_fd, int out_fd)
-{
-    dup2(in_fd, STDIN_FILENO);
-    dup2(out_fd, STDOUT_FILENO);
-
-    close(in_fd);
-    close(out_fd);
-}
-
-void	ft_pipex_bonus(t_pipex *ppxb, char **argv, char **envp, int argc)
-{
-	int	status;
-	int	i;
-	int	j;
-	char buffer[1000];
-	int n;
+	size_t	i;
 
 	i = 0;
-	j = 0;
-
-	ppxb->manual_path = "PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin";
-	ppxb->cmd_number = 2;
-
-	first_file_validation(argv, ppxb, argc);
-	ppxb->file1_fd = open(argv[1], O_RDONLY);
-	ppxb->file2_fd = second_file_validation(argc, argv, ppxb);
-
-	while (i != argc - 4)
+	while (split[i])
 	{
-		if (pipe(ppxb->pipes[i]) == -1)
-		{
-			perror("pipe error");
-			exit (1);
-		}
+		free(split[i]);
 		i++;
 	}
-	
-	while (j < argc - 3)
+	free(split);
+}
+
+char	*get_path(char *cmd, char **envp, t_pipex *ppx, int i)
+{
+	char	**allpath;
+	char	*path_part;
+	char	**s_cmd;
+
+	allpath = ft_split(envp[if_path_exist(ppx, envp)], ':');
+	s_cmd = ft_split(cmd, ' ');
+	while (allpath[++i])
 	{
-		ppxb->pids[j] = fork();
-		if (ppxb->pids[j] == 0)
+		path_part = ft_strjoin(allpath[i], "/");
+		path_part = ft_strjoin(path_part, s_cmd[0]);
+		if (access(path_part, F_OK | X_OK) == 0)
 		{
-			if (j == 0)
-			{
-				ppxb->cmd_number = j + 2;
-				ppxb->counter++;
-				child_process(ppxb->file1_fd, ppxb->pipes[j][1]);
-				cmd_exe(ppxb, argv, envp, -1, argc);
-			}
-			else if (j == argc - 4)
-			{
-				ppxb->cmd_number = j + 2;
-				ppxb->counter++;
-				child_process(ppxb->pipes[j - 1][0], ppxb->file2_fd);
-				cmd_exe(ppxb, argv, envp, -1, argc);
-			}
-			else
-			{
-				ppxb->cmd_number = j + 2;
-				ppxb->counter++;
-				child_process(ppxb->pipes[j - 1][0], ppxb->pipes[j][1]);
-				n = read(STDIN_FILENO, buffer, 1000);
-				write(2, buffer, ft_strlen(buffer));
-				write(2, "\n\n", 2);
-				cmd_exe(ppxb, argv, envp, -1, argc);
-			}
+			ft_free_split(s_cmd);
+			ft_free_split(allpath);
+			return (path_part);
 		}
-		j++;
+		free(path_part);
 	}
-	 for (int k = 0; k < 2; ++k)
-	 {
-		close(ppxb->pipes[k][0]);
-		close(ppxb->pipes[k][1]);
+	ft_free_split(allpath);
+	ft_free_split(s_cmd);
+	return (cmd);
+}
+
+void	exe_cmd(char *cmd, char **env, t_pipex *ppx, int argc)
+{
+	char	**s_cmd;
+	char	*path;
+
+	s_cmd = ft_split(cmd, ' ');
+	path = get_path(s_cmd[0], env, ppx, -1);
+	if (execve(path, s_cmd, env) == -1)
+	{
+		free(path);
+		ft_free_split(s_cmd);
+		error_message_cmd(ppx, 127, argc);
 	}
-	while (ppxb->counter--)
-		waitpid(ppxb->pids[ppxb->counter], &status, 0);
-	while (1)
-		continue ;
+}
+
+void	create_pipes_and_exec(t_pipex *ppx, char *argv, char **envp, int argc)
+{
+	if (pipe(ppx->fd) == -1)
+		exit(0);
+	ppx->pids[ppx->cmd_number - 2] = fork();
+	if (ppx->pids[ppx->cmd_number - 2] == -1)
+		exit(0);
+	if (!ppx->pids[ppx->cmd_number - 2])
+	{
+		close(ppx->fd[0]);
+		dup2(ppx->fd[1], 1);
+		exe_cmd(argv, envp, ppx, argc);
+	}
+	else
+	{
+		close(ppx->fd[1]);
+		dup2(ppx->fd[0], 0);
+	}
+}
+
+void	ft_pipex_bonus(t_pipex *ppx, char **argv, char **envp, int argc)
+{
+	int	status;
+
+	ppx->cmd_number = 2;
+	first_file_validation(argv, ppx, argc);
+	ppx->file1_fd = open(argv[1], O_RDONLY);
+	ppx->file2_fd = second_file_validation(argc, argv, ppx);
+	dup2(ppx->file1_fd, STDIN_FILENO);
+	while (ppx->cmd_number < argc - 2)
+	{
+		create_pipes_and_exec(ppx, argv[ppx->cmd_number], envp, argc);
+		ppx->cmd_number++;
+	}
+	dup2(ppx->file2_fd, STDOUT_FILENO);
+	exe_cmd(argv[argc - 2], envp, ppx, argc);
+	while (ppx->cmd_number-- > 1)
+		waitpid(ppx->pids[ppx->cmd_number - 2], &status, 0);
+	// while (1)
+	// 	continue ;
 	exit(status >> 8);
 }

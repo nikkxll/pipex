@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:52:19 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/08 09:55:08 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:34:01 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	first_file_validation(char **argv, t_pipex *ppx, int argc)
 {
 	if (access(argv[1], F_OK) == -1)
-		error_message("pipex: input: No such file or directory\n", ppx, 1, argc);
+		error("pipex: input: No such file or directory\n", ppx, 1, argc);
 	if (access(argv[1], W_OK) == -1 || access(argv[1], R_OK) == -1)
-		error_message("Permission denied to the file 1\n", ppx, 1, argc);
+		error("Permission denied to the file 1\n", ppx, 1, argc);
 }
 
 int	second_file_validation(int argc, char **argv, t_pipex *ppx)
@@ -26,10 +26,10 @@ int	second_file_validation(int argc, char **argv, t_pipex *ppx)
 
 	file2_fd = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (file2_fd == -1)
-		error_message("Open file error\n", ppx, 1, argc);
+		error("Open file error\n", ppx, 1, argc);
 	if (access(argv[argc - 1], W_OK) == -1
 		|| access(argv[argc - 1], R_OK) == -1)
-		error_message("Permission denied to the file 2\n", ppx, 1, argc);
+		error("Permission denied to the file 2\n", ppx, 1, argc);
 	return (file2_fd);
 }
 
