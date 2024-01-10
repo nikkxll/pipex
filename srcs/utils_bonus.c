@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:52:19 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/09 15:34:01 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/09 23:21:57 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,14 @@ int	second_file_validation(int argc, char **argv, t_pipex *ppx)
 	return (file2_fd);
 }
 
-void	check_if_executable(t_pipex *ppx, char **argv)
+int	check_if_executable(t_pipex *ppx)
 {
-	ppx->cmd_args = ft_split(argv[ppx->cmd_number], ' ');
 	if (ft_strncmp(ppx->cmd_args[0], "exit", 4) == 0)
 		exit(ft_atoi(ppx->cmd_args[1]));
 	if (access(ppx->cmd_args[0], X_OK) == 0)
-		ppx->exec_flag = 1;
+		return (1);
 	else
-		ppx->exec_flag = 0;
+		return (0);
 }
 
 int	if_path_exist(t_pipex *ppx, char **envp)
@@ -61,9 +60,9 @@ int	if_path_exist(t_pipex *ppx, char **envp)
 	return (i);
 }
 
-void	free_splitted_path(char **split)
+void	ft_free_split(char **split)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (split[i])
