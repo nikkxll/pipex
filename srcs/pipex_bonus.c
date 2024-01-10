@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 20:24:52 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/09 12:56:07 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/10 13:42:17 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	*ppx;
+	int		exit_status;
 
 	if (argc < 5)
 	{
@@ -34,5 +35,6 @@ int	main(int argc, char **argv, char **envp)
 		free(ppx);
 		exit(EXIT_FAILURE);
 	}
-	ft_pipex_bonus(ppx, argv, envp, argc);
+	exit_status = ft_pipex_bonus(ppx, argv, envp, argc);
+	exit (exit_status);
 }
