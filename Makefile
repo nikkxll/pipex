@@ -1,5 +1,4 @@
 NAME			:= pipex
-NAME_BONUS		:= pipex_bonus
 
 CC				:= cc
 CFLAGS			:= -g -Wall -Wextra -Werror
@@ -11,8 +10,8 @@ LIBFT			:= $(LIBFT_DIR)/libft.a
 HEADERS_DIR		:= ./headers/
 
 SRCS_PATH		:= ./srcs/
-SRCS_CORE		:= pipex.c core.c error_messages.c utils.c
-SRCS_BONUS		:= pipex_bonus.c core_bonus.c error_messages_bonus.c utils_bonus.c
+SRCS_CORE		:= pipex.c core.c free_modify.c utils.c
+SRCS_BONUS		:= pipex_bonus.c core_bonus.c free_modify_bonus.c utils_bonus.c
 
 HEADERS			:= -I$(HEADERS_DIR)
 HEADERS_CORE 	:= $(HEADERS_DIR)/get_next_line.h $(HEADERS_DIR)/libft.h $(HEADERS_DIR)/pipex.h
@@ -32,18 +31,24 @@ NC				:= \033[0m
 
 all: $(NAME)
 
-$(NAME): $(SRCS) $(OBJS) $(LIBFT) $(HEADERS_CORE)
+$(NAME): $(SRCS) $(OBJS) $(LIBFT) $(HEADERS_CORE) .base
 	@$(CC) $(CFLAGS) $(HEADERS) $(SRCS) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)--- Compilation of '$(NAME)' completed successfully ---$(NC)"
+
+.base:
+	@$(RM) .bonus
+	@touch .base
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-bonus: $(NAME_BONUS)
+bonus: .bonus
 
-$(NAME_BONUS): $(SRCS_BONUS) $(OBJS_BONUS) $(LIBFT) $(HEADERS_BONUS)
-	@$(CC) $(CFLAGS) $(HEADERS) $(SRCS_BONUS) $(LIBFT) -o $(NAME_BONUS)
-	@echo "$(GREEN)--- Compilation of '$(NAME_BONUS)' completed successfully ---$(NC)"
+.bonus: $(SRCS_BONUS) $(OBJS_BONUS) $(LIBFT) $(HEADERS_BONUS)
+	@$(CC) $(CFLAGS) $(HEADERS) $(SRCS_BONUS) $(LIBFT) -o $(NAME)
+	@$(RM) .base
+	@touch .bonus
+	@echo "$(GREEN)--- Compilation of '$(NAME)' completed successfully ---$(NC)"
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
@@ -54,7 +59,7 @@ clean:
 	@echo "$(BLUE)--- Object files from libft cleaned ---$(NC)"
 
 fclean: clean
-	@$(RM) $(NAME) $(NAME_BONUS)
+	@$(RM) $(NAME) .bonus
 	@echo "$(BLUE)--- '$(NAME)' removed ---$(NC)"
 	@make -C $(LIBFT_DIR) fclean
 	@echo "$(BLUE)--- Cleaning finished ---$(NC)"

@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:52:19 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/10 12:26:05 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/10 18:06:07 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	first_file_validation(char **argv, t_pipex *ppx, int argc)
 {
 	int	file1_fd;
-	
+
 	if (access(argv[1], F_OK) == -1)
-		error("pipex: input: No such file or directory\n", ppx, 1, argc);
+		error("pipex: input: No such file or directory\n", ppx, 0, argc);
 	if (access(argv[1], W_OK) == -1 || access(argv[1], R_OK) == -1)
 		error("Permission denied to the file 1\n", ppx, 1, argc);
 	file1_fd = open(argv[1], O_RDONLY);

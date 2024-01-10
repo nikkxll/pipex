@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:18:17 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/10 13:35:26 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/10 21:15:20 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ int		second_file_validation(int argc, char **argv, t_pipex *ppx);
 int		if_path_exist(t_pipex *ppx, char **envp);
 int		check_if_executable(t_pipex *ppx);
 void	ft_free_split(char **split);
+void	subs_tabs_on_spaces(char *str);
 
 #endif

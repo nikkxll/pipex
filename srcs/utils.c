@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:52:19 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/08 13:34:05 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/10 21:32:36 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ int	second_file_validation(int argc, char **argv, t_pipex *ppx)
 
 void	check_if_executable(t_pipex *ppx, char **argv)
 {
+	subs_tabs_on_spaces(argv[ppx->cmd_number]);
+	if (access(argv[ppx->cmd_number], F_OK | X_OK) == 0)
+	{
+		ppx->exec_flag = 1;
+		return ;
+	}
 	ppx->cmd_args = ft_split(argv[ppx->cmd_number], ' ');
 	if (ft_strncmp(ppx->cmd_args[0], "exit", 4) == 0)
 		exit(ft_atoi(ppx->cmd_args[1]));
