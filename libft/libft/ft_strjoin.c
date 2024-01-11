@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 11:01:27 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/03 23:02:56 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/12 00:35:34 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		s2++;
 	}
 	*res = '\0';
+	free((void *)s1);
 	return (ret);
 }

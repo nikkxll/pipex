@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:18:17 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/11 21:04:37 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/11 23:31:46 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ typedef struct s_pipex
 }	t_pipex;
 
 int		ft_pipex(t_pipex *ppxb, char **av, char **env, int ac);
-void	error(char *message, t_pipex *ppx, int error_num, int argc);
-void	error_cmd(char *message, t_pipex *ppx, int error_num, int argc);
-int		first_file_validation(char **argv, t_pipex *ppx, int argc);
+void	error(char *message, t_pipex *ppx, int error_num);
+void	error_cmd(char *message, t_pipex *ppx, int error_num);
+int		first_file_validation(char **argv, t_pipex *ppx);
 int		second_file_validation(int argc, char **argv, t_pipex *ppx);
 int		if_path_exist(t_pipex *ppx, char **envp);
-int		check_if_executable(t_pipex *ppx, char *cmd, int argc);
+int		check_if_executable(t_pipex *ppx, char *cmd);
 void	ft_free_split(char **split);
 void	subs(char *str);
 

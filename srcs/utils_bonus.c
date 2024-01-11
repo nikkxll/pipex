@@ -6,23 +6,23 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:52:19 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/11 20:58:53 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/11 23:47:45 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/pipex_bonus.h"
 
-int	first_file_validation(char **argv, t_pipex *ppx, int argc)
+int	first_file_validation(char **argv, t_pipex *ppx)
 {
 	int	file1_fd;
 
 	if (access(argv[1], F_OK) == -1)
-		error_cmd("zsh: no such file or directory: ", ppx, 0, argc);
+		error_cmd("zsh: no such file or directory: ", ppx, 0);
 	if (access(argv[1], W_OK) == -1 || access(argv[1], R_OK) == -1)
-		error_cmd("zsh: permission denied: ", ppx, 1, argc);
+		error_cmd("zsh: permission denied: ", ppx, 1);
 	file1_fd = open(argv[1], O_RDONLY);
 	if (file1_fd == -1)
-		error("pipex: open file error\n", ppx, 1, argc);
+		error("pipex: open file error\n", ppx, 1);
 	return (file1_fd);
 }
 
@@ -32,14 +32,14 @@ int	second_file_validation(int argc, char **argv, t_pipex *ppx)
 
 	file2_fd = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (file2_fd == -1)
-		error("pipex: open file error\n", ppx, 1, argc);
+		error("pipex: open file error\n", ppx, 1);
 	if (access(argv[argc - 1], W_OK) == -1
 		|| access(argv[argc - 1], R_OK) == -1)
-		error_cmd("zsh: permission denied: ", ppx, 1, argc);
+		error_cmd("zsh: permission denied: ", ppx, 1);
 	return (file2_fd);
 }
 
-int	check_if_executable(t_pipex *ppx, char *cmd, int argc)
+int	check_if_executable(t_pipex *ppx, char *cmd)
 {
 	int	i;
 
@@ -49,11 +49,11 @@ int	check_if_executable(t_pipex *ppx, char *cmd, int argc)
 		while (cmd[i])
 		{
 			if (cmd[i] == ' ')
-				error_cmd("zsh: permission denied: ", ppx, 0, argc);
+				error_cmd("zsh: permission denied: ", ppx, 0);
 			i++;
 		}
 	}
-	if (ft_strncmp(ppx->cmd_args[0], "exit", 4) == 0)
+	if (ppx->cmd_args[0] && ft_strncmp(ppx->cmd_args[0], "exit", 4) == 0)
 		exit(ft_atoi(ppx->cmd_args[1]));
 	if (access(ppx->cmd_args[0], X_OK) == 0)
 		return (1);

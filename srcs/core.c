@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:53:42 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/11 21:03:49 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/12 00:32:16 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,22 @@ char	*get_env_path(char *cmd, char **env, t_pipex *ppx, int i)
 		path_case = ppx->manual_path;
 	subs(cmd);
 	path = ft_split(path_case + 5, ':');
+	if (!path)
+		error("allocation error\n", ppx, 1);
 	ppx->cmd_args = ft_split(cmd, ' ');
+	if (!ppx->cmd_args)
+	{
+		ft_free_split(path);
+		error("allocation error\n", ppx, 1);
+	}
 	while (path[++i])
 	{
 		path_part = ft_strjoin(path[i], "/");
+		if (path[i] && !path_part)
+			error("allocation error\n", ppx, 1);
 		path_part = ft_strjoin(path_part, ppx->cmd_args[0]);
+		if (ppx->cmd_args[0] && !path_part)
+			error("allocation error\n", ppx, 1);
 		if (access(path_part, F_OK | X_OK) == 0)
 		{
 			ft_free_split(path);
@@ -39,40 +50,59 @@ char	*get_env_path(char *cmd, char **env, t_pipex *ppx, int i)
 	return (cmd);
 }
 
-void	execute_cmd(char *cmd, char **env, t_pipex *ppx, int ac)
+void	execute_cmd(char *cmd, char **env, t_pipex *ppx)
 {
 	char	*path;
 	int		run_flag;
 
 	path = get_env_path(cmd, env, ppx, -1);
-	run_flag = check_if_executable(ppx, cmd, ac);
+	run_flag = check_if_executable(ppx, cmd);
 	if (run_flag == 1)
-		execve(ppx->cmd_args[0], ppx->cmd_args, env);
+	{
+		if (execve(ppx->cmd_args[0], ppx->cmd_args, env) == -1)
+		{
+			if (path != cmd)
+				free(path);
+			error_cmd("pipex: execve error: ", ppx, 127);
+		}
+	}
 	else if (run_flag == 2)
-		execve(cmd, ppx->cmd_args, env);
+	{
+		if (execve(cmd, ppx->cmd_args, env) == -1)
+		{
+			if (path != cmd)
+				free(path);
+			error_cmd("pipex: execve error: ", ppx, 127);
+		}
+	}
 	if (access(cmd, F_OK) == 0 && access(cmd, X_OK) == -1)
-		error_cmd("zsh: permission denied: ", ppx, 126, ac);
+		error_cmd("zsh: permission denied: ", ppx, 126);
 	if (execve(path, ppx->cmd_args, env) == -1)
 	{
 		if (path != cmd)
 			free(path);
-		error_cmd("zsh: command not found: ", ppx, 127, ac);
+		error_cmd("zsh: command not found: ", ppx, 127);
 	}
 	ft_free_split(ppx->cmd_args);
 }
 
 void	child_execute(t_pipex *ppx, char **av, char **env, int ac)
 {
-	dup2(ppx->track_fd, STDIN_FILENO);
+	if (dup2(ppx->track_fd, STDIN_FILENO) == -1)
+		error("duplication error\n", ppx, 1);
 	if (ppx->cmd_number != ac - 2)
-		dup2(ppx->fd[1], STDOUT_FILENO);
+	{
+		if(dup2(ppx->fd[1], STDOUT_FILENO) == -1)
+			error("duplication error\n", ppx, 1);
+	}
 	else
 	{
 		ppx->last_fd = second_file_validation(ac, av, ppx);
-		dup2(ppx->last_fd, STDOUT_FILENO);
+		if (dup2(ppx->last_fd, STDOUT_FILENO) == -1)
+			error("duplication error\n", ppx, 1);
 	}
 	close(ppx->fd[0]);
-	execute_cmd(av[ppx->cmd_number], env, ppx, ac);
+	execute_cmd(av[ppx->cmd_number], env, ppx);
 	exit(0);
 }
 
@@ -82,14 +112,14 @@ void	piping(t_pipex *ppx, char **av, char **env, int ac)
 	while (ppx->cmd_number < ac - 1)
 	{
 		if (pipe(ppx->fd) == -1)
-			error("pipe error\n", ppx, 1, ac);
+			error("pipe error\n", ppx, 1);
 		ppx->pids[ppx->cmd_number - 2] = fork();
 		if (ppx->pids[ppx->cmd_number - 2] == -1)
-			error("fork error\n", ppx, 1, ac);
+			error("fork error\n", ppx, 1);
 		else if (ppx->pids[ppx->cmd_number - 2] == 0)
 		{
 			if (ppx->cmd_number == 2)
-				ppx->track_fd = first_file_validation(av, ppx, ac);
+				ppx->track_fd = first_file_validation(av, ppx);
 			child_execute(ppx, av, env, ac);
 		}
 		close(ppx->fd[1]);
