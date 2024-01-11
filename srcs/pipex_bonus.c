@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 20:24:52 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/10 13:42:17 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/11 20:51:47 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc < 5)
 	{
-		ft_putstr_fd("Args number error\n", 2);
+		ft_putstr_fd("args number error\n", 2);
 		exit(127);
 	}
 	ppx = (t_pipex *)malloc(sizeof(t_pipex));
 	if (!ppx)
 	{
-		ft_putstr_fd("Allocation error\n", 2);
+		ft_putstr_fd("allocation error\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	ppx->pids = (pid_t *)malloc((argc - 3) * sizeof(pid_t));
 	if (!ppx->pids)
 	{
-		ft_putstr_fd("Allocation error\n", 2);
+		ft_putstr_fd("allocation error\n", 2);
 		free(ppx);
 		exit(EXIT_FAILURE);
 	}

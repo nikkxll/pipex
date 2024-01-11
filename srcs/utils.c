@@ -6,18 +6,24 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:52:19 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/10 21:32:36 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/11 21:03:58 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/pipex.h"
 
-void	first_file_validation(char **argv, t_pipex *ppx)
+int	first_file_validation(char **argv, t_pipex *ppx, int argc)
 {
+	int	file1_fd;
+
 	if (access(argv[1], F_OK) == -1)
-		error_message("pipex: input: No such file or directory\n", ppx, 0);
+		error_cmd("zsh: no such file or directory: ", ppx, 0, argc);
 	if (access(argv[1], W_OK) == -1 || access(argv[1], R_OK) == -1)
-		error_message("Permission denied to the file 1\n", ppx, 1);
+		error_cmd("zsh: permission denied: ", ppx, 1, argc);
+	file1_fd = open(argv[1], O_RDONLY);
+	if (file1_fd == -1)
+		error("pipex: open file error\n", ppx, 1, argc);
+	return (file1_fd);
 }
 
 int	second_file_validation(int argc, char **argv, t_pipex *ppx)
@@ -26,28 +32,33 @@ int	second_file_validation(int argc, char **argv, t_pipex *ppx)
 
 	file2_fd = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (file2_fd == -1)
-		error_message("Open file error\n", ppx, 1);
+		error("pipex: open file error\n", ppx, 1, argc);
 	if (access(argv[argc - 1], W_OK) == -1
 		|| access(argv[argc - 1], R_OK) == -1)
-		error_message("Permission denied to the file 2\n", ppx, 1);
+		error_cmd("zsh: permission denied: ", ppx, 1, argc);
 	return (file2_fd);
 }
 
-void	check_if_executable(t_pipex *ppx, char **argv)
+int	check_if_executable(t_pipex *ppx, char *cmd, int argc)
 {
-	subs_tabs_on_spaces(argv[ppx->cmd_number]);
-	if (access(argv[ppx->cmd_number], F_OK | X_OK) == 0)
+	int	i;
+
+	i = 0;
+	if (access(cmd, F_OK | X_OK) == 0)
 	{
-		ppx->exec_flag = 1;
-		return ;
+		while (cmd[i])
+		{
+			if (cmd[i] == ' ')
+				error_cmd("zsh: permission denied: ", ppx, 0, argc);
+			i++;
+		}
 	}
-	ppx->cmd_args = ft_split(argv[ppx->cmd_number], ' ');
 	if (ft_strncmp(ppx->cmd_args[0], "exit", 4) == 0)
 		exit(ft_atoi(ppx->cmd_args[1]));
 	if (access(ppx->cmd_args[0], X_OK) == 0)
-		ppx->exec_flag = 1;
+		return (1);
 	else
-		ppx->exec_flag = 0;
+		return (0);
 }
 
 int	if_path_exist(t_pipex *ppx, char **envp)
@@ -67,9 +78,9 @@ int	if_path_exist(t_pipex *ppx, char **envp)
 	return (i);
 }
 
-void	free_splitted_path(char **split)
+void	ft_free_split(char **split)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (split[i])

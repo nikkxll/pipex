@@ -6,87 +6,110 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:53:42 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/10 16:24:19 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/11 21:03:49 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/pipex.h"
 
-void	cmd_exe(t_pipex *ppx, char **argv, char **envp, int j)
+char	*get_env_path(char *cmd, char **env, t_pipex *ppx, int i)
 {
-	check_if_executable(ppx, argv);
-	if (ppx->exec_flag == 1)
-		execve(ppx->cmd_args[0], ppx->cmd_args, envp);
+	char	**path;
+	char	*path_part;
+	char	*path_case;
+
+	path_case = env[if_path_exist(ppx, env)];
+	if (!ppx->path_flag)
+		path_case = ppx->manual_path;
+	subs(cmd);
+	path = ft_split(path_case + 5, ':');
+	ppx->cmd_args = ft_split(cmd, ' ');
+	while (path[++i])
+	{
+		path_part = ft_strjoin(path[i], "/");
+		path_part = ft_strjoin(path_part, ppx->cmd_args[0]);
+		if (access(path_part, F_OK | X_OK) == 0)
+		{
+			ft_free_split(path);
+			return (path_part);
+		}
+		free(path_part);
+	}
+	ft_free_split(path);
+	return (cmd);
+}
+
+void	execute_cmd(char *cmd, char **env, t_pipex *ppx, int ac)
+{
+	char	*path;
+	int		run_flag;
+
+	path = get_env_path(cmd, env, ppx, -1);
+	run_flag = check_if_executable(ppx, cmd, ac);
+	if (run_flag == 1)
+		execve(ppx->cmd_args[0], ppx->cmd_args, env);
+	else if (run_flag == 2)
+		execve(cmd, ppx->cmd_args, env);
+	if (access(cmd, F_OK) == 0 && access(cmd, X_OK) == -1)
+		error_cmd("zsh: permission denied: ", ppx, 126, ac);
+	if (execve(path, ppx->cmd_args, env) == -1)
+	{
+		if (path != cmd)
+			free(path);
+		error_cmd("zsh: command not found: ", ppx, 127, ac);
+	}
+	ft_free_split(ppx->cmd_args);
+}
+
+void	child_execute(t_pipex *ppx, char **av, char **env, int ac)
+{
+	dup2(ppx->track_fd, STDIN_FILENO);
+	if (ppx->cmd_number != ac - 2)
+		dup2(ppx->fd[1], STDOUT_FILENO);
 	else
 	{
-		ppx->path_case = envp[if_path_exist(ppx, envp)];
-		if (!ppx->path_flag)
-			ppx->path_case = ppx->manual_path;
-		ppx->all_paths_array = ft_split(ppx->path_case + 5, ':');
-		if (ppx->all_paths_array[0])
-		{
-			while (ppx->all_paths_array[++j])
-			{
-				ppx->cmd = ft_strjoin(ppx->all_paths_array[j], "/");
-				ppx->cmd = ft_strjoin(ppx->cmd, ppx->cmd_args[0]);
-				if (execve(ppx->cmd, ppx->cmd_args, envp) == -1)
-					free(ppx->cmd);
-			}
-		}
+		ppx->last_fd = second_file_validation(ac, av, ppx);
+		dup2(ppx->last_fd, STDOUT_FILENO);
 	}
-	free_splitted_path(ppx->all_paths_array);
-	error_message_cmd(ppx, 127);
+	close(ppx->fd[0]);
+	execute_cmd(av[ppx->cmd_number], env, ppx, ac);
+	exit(0);
 }
 
-void	child_process_1(t_pipex *ppx, char **argv, char **envp)
+void	piping(t_pipex *ppx, char **av, char **env, int ac)
 {
-	first_file_validation(argv, ppx);
-	ppx->file1_fd = open(argv[1], O_RDONLY);
-	if (ppx->file1_fd == -1)
-		error_message("open file error\n", ppx, 1);
-	if (dup2(ppx->file1_fd, STDIN_FILENO) == -1)
-		error_message("duplication error for f1 stdin\n", ppx, 1);
-	if (dup2(ppx->pipe_end[1], STDOUT_FILENO) == -1)
-		error_message("duplication error for f1 stdout\n", ppx, 1);
-	close(ppx->pipe_end[0]);
-	close(ppx->file1_fd);
-	ppx->cmd_number = 2;
-	cmd_exe(ppx, argv, envp, -1);
+	ppx->track_fd = -1;
+	while (ppx->cmd_number < ac - 1)
+	{
+		if (pipe(ppx->fd) == -1)
+			error("pipe error\n", ppx, 1, ac);
+		ppx->pids[ppx->cmd_number - 2] = fork();
+		if (ppx->pids[ppx->cmd_number - 2] == -1)
+			error("fork error\n", ppx, 1, ac);
+		else if (ppx->pids[ppx->cmd_number - 2] == 0)
+		{
+			if (ppx->cmd_number == 2)
+				ppx->track_fd = first_file_validation(av, ppx, ac);
+			child_execute(ppx, av, env, ac);
+		}
+		close(ppx->fd[1]);
+		close(ppx->track_fd);
+		ppx->track_fd = ppx->fd[0];
+		ppx->cmd_number++;
+	}
+	close(ppx->fd[0]);
 }
 
-void	child_process_2(t_pipex *ppx, char **argv, char **envp, int argc)
-{
-	ppx->file2_fd = second_file_validation(argc, argv, ppx);
-	if (dup2(ppx->file2_fd, STDOUT_FILENO) == -1)
-		error_message("duplication error for f2 stdout\n", ppx, 1);
-	if (dup2(ppx->pipe_end[0], STDIN_FILENO) == -1)
-		error_message("duplication error for f2 stdin\n", ppx, 1);
-	close(ppx->pipe_end[1]);
-	close(ppx->file2_fd);
-	ppx->cmd_number = 3;
-	cmd_exe(ppx, argv, envp, -1);
-}
-
-void	ft_pipex(t_pipex *ppx, char **argv, char **envp, int argc)
+int	ft_pipex(t_pipex *ppx, char **av, char **env, int ac)
 {
 	int	status;
+	int	pid_num;
 
+	pid_num = -1;
 	ppx->manual_path = "PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin";
-	if (pipe(ppx->pipe_end) == -1)
-		error_message("pipe error\n", ppx, 1);
-	ppx->child_1 = fork();
-	if (ppx->child_1 < 0)
-		error_message("fork error\n", ppx, 1);
-	if (!ppx->child_1)
-		child_process_1(ppx, argv, envp);
-	ppx->child_2 = fork();
-	if (ppx->child_2 < 0)
-		error_message("fork error\n", ppx, 1);
-	if (!ppx->child_2)
-		child_process_2(ppx, argv, envp, argc);
-	close(ppx->pipe_end[0]);
-	close(ppx->pipe_end[1]);
-	waitpid(ppx->child_1, &status, 0);
-	waitpid(ppx->child_2, &status, 0);
-	exit(status >> 8);
+	ppx->cmd_number = 2;
+	piping(ppx, av, env, ac);
+	while (pid_num++ < ppx->cmd_number - 2)
+		waitpid(ppx->pids[pid_num], &status, 0);
+	return (status >> 8);
 }

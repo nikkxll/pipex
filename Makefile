@@ -54,12 +54,13 @@ $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
 
 clean:
+	@$(RM) $(NAME) .bonus
+	@$(RM) $(NAME) .base
 	@$(RM) $(OBJS) $(OBJS_BONUS)
 	@$(MAKE) -C $(LIBFT_DIR) clean
 	@echo "$(BLUE)--- Object files from libft cleaned ---$(NC)"
 
 fclean: clean
-	@$(RM) $(NAME) .bonus
 	@echo "$(BLUE)--- '$(NAME)' removed ---$(NC)"
 	@make -C $(LIBFT_DIR) fclean
 	@echo "$(BLUE)--- Cleaning finished ---$(NC)"

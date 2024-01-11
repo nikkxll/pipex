@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:53:42 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/10 21:25:50 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/11 20:58:20 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ char	*get_env_path(char *cmd, char **env, t_pipex *ppx, int i)
 	path_case = env[if_path_exist(ppx, env)];
 	if (!ppx->path_flag)
 		path_case = ppx->manual_path;
-	subs_tabs_on_spaces(cmd);
-	if (access(cmd, F_OK | X_OK) == 0)
-		return (cmd);
+	subs(cmd);
 	path = ft_split(path_case + 5, ':');
 	ppx->cmd_args = ft_split(cmd, ' ');
 	while (path[++i])
@@ -44,14 +42,21 @@ char	*get_env_path(char *cmd, char **env, t_pipex *ppx, int i)
 void	execute_cmd(char *cmd, char **env, t_pipex *ppx, int ac)
 {
 	char	*path;
+	int		run_flag;
 
 	path = get_env_path(cmd, env, ppx, -1);
-	if (check_if_executable(ppx))
+	run_flag = check_if_executable(ppx, cmd, ac);
+	if (run_flag == 1)
 		execve(ppx->cmd_args[0], ppx->cmd_args, env);
+	else if (run_flag == 2)
+		execve(cmd, ppx->cmd_args, env);
+	if (access(cmd, F_OK) == 0 && access(cmd, X_OK) == -1)
+		error_cmd("zsh: permission denied: ", ppx, 126, ac);
 	if (execve(path, ppx->cmd_args, env) == -1)
 	{
-		error_message_cmd(ppx, 127, ac);
-		free(path);
+		if (path != cmd)
+			free(path);
+		error_cmd("zsh: command not found: ", ppx, 127, ac);
 	}
 	ft_free_split(ppx->cmd_args);
 }
