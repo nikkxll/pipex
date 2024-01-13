@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:53:42 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/13 13:27:23 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/13 22:10:23 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ char	*search_for_path_in_env(t_pipex *ppx, int i, char **path, char *part)
 		}
 		if (access(ppx->path_to_check, F_OK | X_OK) == 0)
 		{
-			ft_free_split(path);
+			free(part);
 			return (ppx->path_to_check);
 		}
-		free(ppx->path_to_check);
+		loop_free(ppx, part);
 	}
 	return (NULL);
 }
@@ -62,7 +62,10 @@ char	*get_env_path(char *cmd, char **env, t_pipex *ppx)
 		error("allocation error\n", ppx, 1);
 	}
 	if (search_for_path_in_env(ppx, -1, path, path_part))
+	{
+		ft_free_split(path);
 		return (ppx->path_to_check);
+	}
 	ft_free_split(path);
 	return (cmd);
 }
@@ -73,7 +76,7 @@ void	execute_cmd(char *cmd, char **env, t_pipex *ppx)
 	int		run_flag;
 
 	path = get_env_path(cmd, env, ppx);
-	run_flag = check_if_executable(ppx, cmd);
+	run_flag = check_if_executable(ppx, cmd, path);
 	if (run_flag == 1)
 	{
 		if (execve(ppx->cmd_args[0], ppx->cmd_args, env) == -1)
@@ -85,10 +88,13 @@ void	execute_cmd(char *cmd, char **env, t_pipex *ppx)
 			ft_execve_fail("pipex: execve error: ", path, cmd, ppx);
 	}
 	if (access(cmd, F_OK) == 0 && access(cmd, X_OK) == -1)
+	{
+		if (path != cmd)
+			free(path);
 		error_cmd("zsh: permission denied: ", ppx, 126);
+	}
 	if (execve(path, ppx->cmd_args, env) == -1)
 		ft_execve_fail("zsh: command not found: ", path, cmd, ppx);
-	ft_free_split(ppx->cmd_args);
 }
 
 void	child_execute(t_pipex *ppx, char **av, char **env, int ac)

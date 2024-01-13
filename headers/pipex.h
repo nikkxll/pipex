@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:18:17 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/12 17:51:58 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/13 22:09:33 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ void	error_file(char *message, char *file, t_pipex *ppx, int error_num);
 int		first_file_validation(char **argv, t_pipex *ppx);
 int		second_file_validation(int argc, char **argv, t_pipex *ppx);
 int		if_path_exist(t_pipex *ppx, char **envp);
-int		check_if_executable(t_pipex *ppx, char *cmd);
+int		check_if_executable(t_pipex *ppx, char *cmd, char *path);
 void	ft_free_split(char **split);
 void	subs(char *str);
+void	loop_free(t_pipex *ppx, char *part);
 void	ft_execve_fail(char *message, char *path, char *cmd, t_pipex *ppx);
 
 #endif

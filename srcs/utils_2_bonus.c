@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 17:44:46 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/12 17:46:41 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/13 22:01:28 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,10 @@ void	subs(char *str)
 			str[i] = ' ';
 		i++;
 	}
+}
+
+void	loop_free(t_pipex *ppx, char *part)
+{
+	free(ppx->path_to_check);
+	free(part);
 }

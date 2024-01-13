@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:52:19 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/12 17:34:37 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/13 22:09:12 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	second_file_validation(int argc, char **argv, t_pipex *ppx)
 	return (file2_fd);
 }
 
-int	check_if_executable(t_pipex *ppx, char *cmd)
+int	check_if_executable(t_pipex *ppx, char *cmd, char *path)
 {
 	int	i;
 
@@ -48,7 +48,11 @@ int	check_if_executable(t_pipex *ppx, char *cmd)
 		while (cmd[i])
 		{
 			if (cmd[i] == ' ')
+			{
+				if (path != cmd)
+					free(path);
 				error_cmd("zsh: permission denied: ", ppx, 0);
+			}
 			i++;
 		}
 	}
