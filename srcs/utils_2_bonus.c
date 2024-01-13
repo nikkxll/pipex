@@ -1,36 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_modify.c                                      :+:      :+:    :+:   */
+/*   utils_2_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 22:53:07 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/11 23:50:20 by dnikifor         ###   ########.fr       */
+/*   Created: 2024/01/12 17:44:46 by dnikifor          #+#    #+#             */
+/*   Updated: 2024/01/12 17:46:41 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/pipex.h"
-
-void	error(char *message, t_pipex *ppx, int error_num)
-{
-	ft_putstr_fd(message, 2);
-	free(ppx);
-	free(ppx->pids);
-	exit(error_num);
-}
-
-void	error_cmd(char *message, t_pipex *ppx, int error_num)
-{
-	ft_putstr_fd(message, 2);
-	if (ppx->cmd_args[0])
-		ft_putendl_fd(ppx->cmd_args[0], 2);
-	else
-		ft_putchar_fd('\n', 2);
-	free(ppx);
-	free(ppx->pids);
-	exit(error_num);
-}
+#include "../headers/pipex_bonus.h"
 
 char	*remove_backslashes(char *str)
 {

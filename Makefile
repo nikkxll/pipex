@@ -10,8 +10,8 @@ LIBFT			:= $(LIBFT_DIR)/libft.a
 HEADERS_DIR		:= ./headers/
 
 SRCS_PATH		:= ./srcs/
-SRCS_CORE		:= pipex.c core.c free_modify.c utils.c
-SRCS_BONUS		:= pipex_bonus.c core_bonus.c free_modify_bonus.c utils_bonus.c
+SRCS_CORE		:= pipex.c core.c error.c utils.c utils_2.c
+SRCS_BONUS		:= pipex_bonus.c core_bonus.c error_bonus.c utils_bonus.c utils_2_bonus.c
 
 HEADERS			:= -I$(HEADERS_DIR)
 HEADERS_CORE 	:= $(HEADERS_DIR)/get_next_line.h $(HEADERS_DIR)/libft.h $(HEADERS_DIR)/pipex.h

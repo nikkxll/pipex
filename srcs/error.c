@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_modify_bonus.c                                :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:53:07 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/11 23:50:40 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:50:57 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/pipex_bonus.h"
+#include "../headers/pipex.h"
+
+void	ft_execve_fail(char *message, char *path, char *cmd, t_pipex *ppx)
+{
+	if (path != cmd)
+		free(path);
+	error_cmd(message, ppx, 127);
+}
 
 void	error(char *message, t_pipex *ppx, int error_num)
 {
@@ -32,36 +39,14 @@ void	error_cmd(char *message, t_pipex *ppx, int error_num)
 	exit(error_num);
 }
 
-char	*remove_backslashes(char *str)
+void	error_file(char *message, char *file, t_pipex *ppx, int error_num)
 {
-	char	*src;
-	char	*dst;
-
-	src = str;
-	dst = str;
-	while (*src != '\0')
-	{
-		if (*src != '\\')
-		{
-			*dst = *src;
-			dst++;
-		}
-		src++;
-	}
-	*dst = '\0';
-	return (dst);
-}
-
-void	subs(char *str)
-{
-	int	i;
-
-	i = 0;
-	str = remove_backslashes(str);
-	while (str[i] != '\0')
-	{
-		if (str[i] == '\t')
-			str[i] = ' ';
-		i++;
-	}
+	ft_putstr_fd(message, 2);
+	if (file)
+		ft_putendl_fd(file, 2);
+	else
+		ft_putchar_fd('\n', 2);
+	free(ppx);
+	free(ppx->pids);
+	exit(error_num);
 }

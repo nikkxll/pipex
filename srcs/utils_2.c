@@ -1,34 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/27 11:27:10 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/12 18:07:14 by dnikifor         ###   ########.fr       */
+/*   Created: 2024/01/12 17:44:29 by dnikifor          #+#    #+#             */
+/*   Updated: 2024/01/12 17:46:59 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// Prototype: void ft_putstr_fd(char *s, int fd);
+#include "../headers/pipex.h"
 
-// Turn in files: -
-
-// Parameters s: The string to output.
-// 			  fd: The file descriptor on which to write.
-
-// Return value: None
-
-// External functs.: write
-
-// Description: Outputs the string ’s’ to the given file
-// descriptor.
-
-#include "../../headers/libft.h"
-
-void	ft_putstr_fd(char *s, int fd)
+char	*remove_backslashes(char *str)
 {
-	if (!s)
-		return ;
-	write(fd, s, ft_strlen(s));
+	char	*src;
+	char	*dst;
+
+	src = str;
+	dst = str;
+	while (*src != '\0')
+	{
+		if (*src != '\\')
+		{
+			*dst = *src;
+			dst++;
+		}
+		src++;
+	}
+	*dst = '\0';
+	return (dst);
+}
+
+void	subs(char *str)
+{
+	int	i;
+
+	i = 0;
+	str = remove_backslashes(str);
+	while (str[i] != '\0')
+	{
+		if (str[i] == '\t')
+			str[i] = ' ';
+		i++;
+	}
 }

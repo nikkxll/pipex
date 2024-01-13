@@ -6,11 +6,25 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 20:24:52 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/11 21:03:55 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/13 13:30:42 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/pipex.h"
+
+int	ft_pipex(t_pipex *ppx, char **av, char **env, int ac)
+{
+	int	status;
+	int	pid_num;
+
+	pid_num = -1;
+	ppx->manual_path = "PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin";
+	ppx->cmd_number = 2;
+	piping(ppx, av, env, ac);
+	while (pid_num++ < ppx->cmd_number - 2)
+		waitpid(ppx->pids[pid_num], &status, 0);
+	return (status >> 8);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -20,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 5)
 	{
 		ft_putstr_fd("args number error\n", 2);
-		exit(127);
+		exit(EXIT_FAILURE);
 	}
 	ppx = (t_pipex *)malloc(sizeof(t_pipex));
 	if (!ppx)

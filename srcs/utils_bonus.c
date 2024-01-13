@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 22:52:19 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/11 23:47:45 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:34:37 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ int	first_file_validation(char **argv, t_pipex *ppx)
 	int	file1_fd;
 
 	if (access(argv[1], F_OK) == -1)
-		error_cmd("zsh: no such file or directory: ", ppx, 0);
-	if (access(argv[1], W_OK) == -1 || access(argv[1], R_OK) == -1)
-		error_cmd("zsh: permission denied: ", ppx, 1);
+		error_file("zsh: no such file or directory: ", argv[1], ppx, 0);
+	if (access(argv[1], R_OK) == -1)
+		error_file("zsh: permission denied: ", argv[1], ppx, 1);
 	file1_fd = open(argv[1], O_RDONLY);
 	if (file1_fd == -1)
-		error("pipex: open file error\n", ppx, 1);
+		error_file("pipex: open file error: ", argv[1], ppx, 1);
 	return (file1_fd);
 }
 
@@ -30,12 +30,11 @@ int	second_file_validation(int argc, char **argv, t_pipex *ppx)
 {
 	int	file2_fd;
 
+	if (access(argv[argc - 1], F_OK) == 0 && access(argv[argc - 1], W_OK) == -1)
+		error_file("zsh: permission denied: ", argv[argc - 1], ppx, 1);
 	file2_fd = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (file2_fd == -1)
-		error("pipex: open file error\n", ppx, 1);
-	if (access(argv[argc - 1], W_OK) == -1
-		|| access(argv[argc - 1], R_OK) == -1)
-		error_cmd("zsh: permission denied: ", ppx, 1);
+		error_file("pipex: open file error: ", argv[argc - 1], ppx, 1);
 	return (file2_fd);
 }
 
