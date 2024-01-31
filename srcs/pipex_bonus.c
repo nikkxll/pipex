@@ -6,7 +6,7 @@
 /*   By: dnikifor <dnikifor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 20:24:52 by dnikifor          #+#    #+#             */
-/*   Updated: 2024/01/13 22:13:46 by dnikifor         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:53:59 by dnikifor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv, char **envp)
 		exit(EXIT_FAILURE);
 	}
 	exit_status = ft_pipex_bonus(ppx, argv, envp, argc);
-	free(ppx);
 	free(ppx->pids);
+	free(ppx);
 	return (exit_status);
 }
