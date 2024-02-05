@@ -5,6 +5,7 @@
 - [Examples](#examples)
 - [Requirements](#requirements)
 - [Bonus](#bonus)
+- [Usage](#usage)
 - [Results](#results)
 
 ## Mandatory
@@ -77,6 +78,20 @@ Should behave like:
 ```
 cmd << LIMITER | cmd1 >> file
 ```
+
+## Usage
+
+1) To compile mandatory part executable run
+```
+make
+```
+Than run executable according to the description above.
+
+2) To compile bonus part executable run
+```
+make bonus
+```
+Than run executable according to the description above.
 
 ## Results
 
